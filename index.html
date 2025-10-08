@@ -5,7 +5,6 @@
     <title>Patio Efimero 6</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      /* page background */
       :root {
         --bg: #ff7850;
         --ink: #111;
@@ -14,82 +13,107 @@
       html,
       body {
         height: 100%;
+        margin: 0;
       }
       body {
-        margin: 0;
         background: var(--bg);
         color: var(--ink);
-        font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial,
-          sans-serif;
-        display: grid;
-        place-items: center;
+        font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      /* max width wrapper */
       .wrap {
-        width: min(100%, 1200px);
+        width: min(100%, 1400px);
         padding: 24px;
         box-sizing: border-box;
       }
 
-      /* 2-column split: left title, right map */
       .split {
-        display: flex;
-        gap: 24px;
-        align-items: stretch;
-        min-height: 50vh; /* tweak if you want taller/shorter */
-      }
-
-      .left,
-      .right {
-        flex: 1 1 50%;
-        display: flex;
-      }
-
-      /* title block */
-      .title {
-        background: transparent; /* let the orange breathe */
-        color: #dfe8ff;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 32px;
         align-items: center;
-        justify-content: center;
-        padding: 24px;
-        width: 100%;
+      }
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .title {
+        color: #dfe8ff;
       }
       .title h1 {
-        margin: 0;
-        font-size: clamp(32px, 5vw, 64px);
+        margin: 0 0 16px 0;
+        font-size: clamp(32px, 5vw, 56px);
         letter-spacing: 0.5px;
         line-height: 1.1;
       }
 
-      /* map panel (right half) */
+      .locations {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .locations h2 {
+        margin: 0 0 16px 0;
+        font-size: 20px;
+        color: var(--ink);
+      }
+
+      .locations ol {
+        margin: 0;
+        padding-left: 24px;
+      }
+
+      .locations li {
+        margin: 8px 0;
+        color: #444;
+        line-height: 1.5;
+      }
+
       .map-panel {
         background: var(--panel);
         border-radius: 16px;
-        width: 800px;
-        height: 1000px;
+        padding: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        height: 600px;
         display: flex;
       }
 
-      /* actual map container where you mount ThreeJS */
       #map {
-        background: #dfe8ff; /* temp sky-ish color so you see the box */
+        background: #3186D6;
         border-radius: 12px;
         flex: 1;
-        min-height: 380px; /* ensures a decent area at small widths */
-        aspect-ratio: 16 / 10; /* keeps shape predictable as it grows */
         overflow: hidden;
+        position: relative;
       }
 
-      /* Optional: stack on narrow screens */
-      @media (max-width: 800px) {
+      .map-hint {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      @media (max-width: 1024px) {
         .split {
-          flex-direction: column;
+          grid-template-columns: 1fr;
         }
-        .left,
-        .right {
-          flex-basis: auto;
+        .map-panel {
+          height: 500px;
         }
       }
     </style>
@@ -99,28 +123,34 @@
       <div class="split">
         <section class="left">
           <div class="title">
-            <h1>Patio Efimero 6</h1>
+            <h1>Patio Efímero 6</h1>
+            <p>Explora los patios históricos de Puebla</p>
           </div>
-          <ol>
-            <li>Patio Anónimo</li>
-            <li>Patio Malicia</li>
-            <li>Casa Sacristía</li>
-            <li>Patio Mucho Bueno</li>
-            <li>Casa Sabino</li>
-            <li>Casa Presno</li>
-            <li>Gerencia del Centro Histórico y patrimonio cultural</li>
-          </ol>
+          
+          <div class="locations">
+            <h2>Ubicaciones</h2>
+            <ol>
+              <li>Patio Anónimo</li>
+              <li>Patio Malicia</li>
+              <li>Casa Sacristía</li>
+              <li>Patio Mucho Bueno</li>
+              <li>Casa Sabino</li>
+              <li>Casa Presno</li>
+              <li>Gerencia del Centro Histórico</li>
+            </ol>
+          </div>
         </section>
 
         <section class="right">
           <div class="map-panel">
-            <div id="map"></div>
+            <div id="map">
+              <div class="map-hint">Haz clic en una casa para explorarla</div>
+            </div>
           </div>
         </section>
       </div>
     </div>
 
-    <!-- Your script that mounts ThreeJS should target #map -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
