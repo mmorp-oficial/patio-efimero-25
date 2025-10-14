@@ -18,6 +18,23 @@ const SPLATS = {
   casa7: "/splats/gs_Casa7_0.ply",
 };
 
+// Patio information
+const PATIO_INFO = {
+  casa1: {
+    name: "Tramas ocultas",
+    author: "UNIVERSIDAD ANÁHUAC CAMPUS PUEBLA",
+  },
+  casa2: {
+    name: "La ética de los cuidados",
+    author: "TECNOLÓGICO DE MONTERREY CAMPUS PUEBLA",
+  },
+  casa3: { name: "Millar", author: "ANDRÉS Y JOSÉ + MAJO MENDOZA" },
+  casa4: { name: "Una ventana hacia el pasado", author: "EMA" },
+  casa5: { name: "Ciudad deshilada", author: "ARQUÍA" },
+  casa6: { name: "Paisajes urbanos trans(h)istóricos", author: "NOSOTRANS" },
+  casa7: { name: "Biombo Urbano", author: "COLECTIVO ÁGORA" },
+};
+
 // Three.js setup
 const container = document.getElementById("viewer") || document.body;
 
@@ -45,7 +62,7 @@ camera.position.set(0, CAMERA_HEIGHT, 0);
 // 360° background
 {
   const loader = new THREE.TextureLoader();
-  const tex = loader.load("/textures/sky_360.png", () => {
+  const tex = loader.load("/textures/sky_360.webp", () => {
     tex.mapping = THREE.EquirectangularReflectionMapping;
     tex.colorSpace = THREE.SRGBColorSpace;
     scene.background = tex;
@@ -175,6 +192,28 @@ Object.assign(hint.style, {
   pointerEvents: "none",
 });
 document.body.appendChild(hint);
+
+// Title overlay (bottom left like Luma)
+const info = PATIO_INFO[id] || {
+  name: "Patio Desconocido",
+  author: "AUTOR PENDIENTE",
+};
+
+const titleOverlay = document.createElement("div");
+titleOverlay.innerHTML = `
+  <div style="font-size: 22px; opacity: 0.7; margin-bottom: 4px; letter-spacing: 0.5px;">Por ${info.author}</div>
+  <div style="font-size: 32px; font-weight: 600; line-height: 1.2;">${info.name}</div>
+`;
+Object.assign(titleOverlay.style, {
+  position: "absolute",
+  bottom: "48px",
+  left: "12px",
+  color: "#fff",
+  font: "14px/1.4 system-ui, sans-serif",
+  pointerEvents: "none",
+  textShadow: "0 2px 4px rgba(0,0,0,0.9)",
+});
+document.body.appendChild(titleOverlay);
 
 const back = document.createElement("button");
 back.textContent = "← Back";

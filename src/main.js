@@ -449,7 +449,6 @@ loader.load(
     let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
     cameraZ *= 1.5;
 
-    camera.position.set(center.x, center.y + maxDim * 0.3, center.z + cameraZ);
     camera.lookAt(center);
 
     camera.near = size / 100;
