@@ -1,26 +1,24 @@
 // src/splat-viewer.js
 import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls.js";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js"; // used in Option B
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { SplatMesh } from "@sparkjsdev/spark";
 
-// ── which splat?
+// Get house ID from URL
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "casa1";
 
 const SPLATS = {
-  /* casa1: "/splats/casa1.spz",
-  casa2: "/splats/casa2.spz",
-  casa3: "/splats/casa3.spz",
-  casa4: "/splats/casa4.spz", */
-  // in splat-viewer.js, replace url with:
   casa1: "/splats/gs_Anahuac_0.ply",
   casa2: "/splats/gs_Etica_0.ply",
   casa3: "/splats/gs_Millar_0.ply",
   casa4: "/splats/gs_Ventana_0.ply",
+  casa5: "/splats/gs_Casa5_0.ply", // Add your actual file paths
+  casa6: "/splats/gs_Casa6_0.ply",
+  casa7: "/splats/gs_Casa7_0.ply",
 };
 
-// ── three setup
+// Three.js setup
 const container = document.getElementById("viewer") || document.body;
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -29,7 +27,6 @@ renderer.setSize(
   container.clientWidth || window.innerWidth,
   container.clientHeight || window.innerHeight
 );
-// IMPORTANT: newer three -> use SRGBColorSpace (not sRGBEncoding)
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 container.appendChild(renderer.domElement);
 
@@ -45,65 +42,32 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.set(0, CAMERA_HEIGHT, 0);
 
-/* ------------------------------
-   Option A) 360° JPG/PNG background
-   Put your file at: /public/textures/sky_360.jpg
---------------------------------*/
+// 360° background
 {
   const loader = new THREE.TextureLoader();
   const tex = loader.load("/textures/sky_360.png", () => {
-    // equirectangular mapping
     tex.mapping = THREE.EquirectangularReflectionMapping;
-    // color management (new API)
     tex.colorSpace = THREE.SRGBColorSpace;
     scene.background = tex;
-    // If you want PBR meshes to be lit by the sky:
     scene.environment = tex;
   });
 }
 
-/* ------------------------------
-   Option B) HDRI background+lighting (comment Option A block above if you enable this)
-   Put your HDR at: /public/hdr/studio_small_09_2k.hdr
---------------------------------
-{
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  pmrem.compileEquirectangularShader();
-
-  new RGBELoader()
-    .setPath('/hdr/')
-    .load('studio_small_09_2k.hdr', (hdr) => {
-      hdr.mapping = THREE.EquirectangularReflectionMapping;
-
-      // show the HDR as the visible background
-      scene.background = hdr;
-
-      // use a filtered envmap for PBR lighting
-      const envMap = pmrem.fromEquirectangular(hdr).texture;
-      scene.environment = envMap;
-
-      hdr.dispose?.();
-      pmrem.dispose();
-    });
-}
-*/
-
-// ── load splat
+// Load splat
 const splat = new SplatMesh({
   url: SPLATS[id],
   onLoad: () => {
     console.log("Splat ready:", id);
-    // If it looks upside down, flip it:
-    splat.rotation.x = Math.PI; // 180° around X
+    splat.rotation.x = Math.PI;
   },
 });
 scene.add(splat);
 
-// ── Pointer-lock FPS controls
+// Pointer-lock FPS controls
 const controls = new PointerLockControls(camera, renderer.domElement);
 renderer.domElement.addEventListener("click", () => controls.lock());
 
-// ── Movement state
+// Movement state
 const keys = { w: false, s: false, a: false, d: false, shift: false };
 addEventListener("keydown", (e) => {
   switch (e.code) {
@@ -154,10 +118,10 @@ addEventListener("keyup", (e) => {
   }
 });
 
-// ── XZ-only movement via PointerLockControls helpers
+// Movement
 const clock = new THREE.Clock();
-const BASE_SPEED = .9; // m/s
-const SPRINT = 1.5; // multiplier
+const BASE_SPEED = 0.9;
+const SPRINT = 1.5;
 
 function move(dt) {
   let forward = 0,
@@ -176,11 +140,10 @@ function move(dt) {
     controls.moveRight(right * speed);
   }
 
-  // lock to plane
   camera.position.y = CAMERA_HEIGHT;
 }
 
-// optional bounds
+// Bounds
 const bounds = new THREE.Box3(
   new THREE.Vector3(-50, -10, -50),
   new THREE.Vector3(50, 10, 50)
@@ -199,7 +162,7 @@ function clampToBounds() {
   camera.position.y = CAMERA_HEIGHT;
 }
 
-// UI: hint + back
+// UI
 const hint = document.createElement("div");
 hint.textContent = "Click to look • WASD to move • Shift to sprint";
 Object.assign(hint.style, {
@@ -230,7 +193,7 @@ Object.assign(back.style, {
 back.onclick = () => (window.location.href = "/");
 document.body.appendChild(back);
 
-// animate
+// Animate
 renderer.setAnimationLoop(() => {
   const dt = clock.getDelta();
   if (controls.isLocked) move(dt);
@@ -238,7 +201,7 @@ renderer.setAnimationLoop(() => {
   renderer.render(scene, camera);
 });
 
-// resize
+// Resize
 addEventListener("resize", () => {
   const w = container.clientWidth || window.innerWidth;
   const h = container.clientHeight || window.innerHeight;

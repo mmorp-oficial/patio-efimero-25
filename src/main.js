@@ -12,8 +12,8 @@ vec2 iResolution = vec2(10.0);
 #define SHOW_NOISE 0
 #define SRGB 0
 #define BLEND_MODE 0
-#define SPEED 0.2
-#define INTENSITY 0.05
+#define SPEED 0.4
+#define INTENSITY 0.07
 #define MEAN 0.0
 #define VARIANCE 0.45
  
@@ -105,9 +105,7 @@ controls.dampingFactor = 0.05;
 controls.maxPolarAngle = Math.PI * 0.5;
 controls.minPolarAngle = Math.PI * 0.1;
 controls.target.set(0, 0, 0);
-/* controls.enablePan = false; */ // Disable panning entirely
-// Or if you want horizontal panning only:
-controls.screenSpacePanning = false; // This makes pan stay on horizontal plane
+controls.screenSpacePanning = false; // Horizontal panning only (stays on ground plane)
 
 // Create separate scene and camera for grain overlay
 const grainScene = new THREE.Scene();
@@ -141,6 +139,57 @@ const mouse = new THREE.Vector2();
 const clickables = new Set();
 let hovered = null;
 let lastMaterialState = null;
+
+// Location markers data - adjust positions based on your actual house positions
+const locationMarkers = [
+  { id: "casa1", number: 1, position: new THREE.Vector3(0, 0, 0) },
+  { id: "casa2", number: 2, position: new THREE.Vector3(5, 0, 5) },
+  { id: "casa3", number: 3, position: new THREE.Vector3(-5, 0, 5) },
+  { id: "casa4", number: 4, position: new THREE.Vector3(0, 0, -5) },
+];
+
+const markerElements = new Map();
+
+// Create marker HTML elements
+locationMarkers.forEach((marker) => {
+  const el = document.createElement("div");
+  el.className = "location-marker hidden";
+  el.textContent = marker.number;
+  el.dataset.houseId = marker.id;
+
+  el.addEventListener("click", () => {
+    window.location.href = `/splat.html?id=${encodeURIComponent(marker.id)}`;
+  });
+
+  container.appendChild(el);
+  markerElements.set(marker.id, { element: el, position: marker.position });
+});
+
+// Update marker positions based on 3D coordinates
+function updateMarkers() {
+  markerElements.forEach((marker, id) => {
+    const pos = marker.position.clone();
+    pos.y += 4; // Move markers up by 2 units
+    pos.project(camera);
+
+    // Convert to screen space
+    const x = (pos.x * 0.5 + 0.5) * container.clientWidth;
+    const y = (pos.y * -0.5 + 0.5) * container.clientHeight;
+
+    // Check if marker is in front of camera
+    const isVisible = pos.z < 1;
+
+    marker.element.style.left = `${x}px`;
+    marker.element.style.top = `${y}px`;
+    marker.element.style.transform = "translate(-50%, -50%)";
+
+    if (isVisible) {
+      marker.element.classList.remove("hidden");
+    } else {
+      marker.element.classList.add("hidden");
+    }
+  });
+}
 
 function setCursorPointer(on) {
   renderer.domElement.style.cursor = on ? "pointer" : "default";
@@ -335,6 +384,20 @@ loader.load(
       `Map added to scene. Found ${clickables.size} clickable houses.`
     );
 
+    // Update marker positions based on actual house positions
+    clickables.forEach((mesh) => {
+      const id = findHouseId(mesh);
+      if (id && markerElements.has(id)) {
+        // Get the world position of the mesh
+        const box = new THREE.Box3().setFromObject(mesh);
+        const center = box.getCenter(new THREE.Vector3());
+
+        // Update marker position
+        markerElements.get(id).position.copy(center);
+        console.log(`Updated marker position for ${id}:`, center);
+      }
+    });
+
     // Frame the scene properly
     const box = new THREE.Box3().setFromObject(map);
     const sizeV = box.getSize(new THREE.Vector3());
@@ -386,6 +449,9 @@ function animate() {
     try {
       controls.update();
 
+      // Update marker positions
+      updateMarkers();
+
       // Render main scene first
       renderer.autoClear = false;
       renderer.clear();
@@ -427,6 +493,7 @@ function resize() {
   renderer.setSize(w, h, false);
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
+  updateMarkers(); // Update marker positions on resize
 }
 resize();
 window.addEventListener("resize", resize);
