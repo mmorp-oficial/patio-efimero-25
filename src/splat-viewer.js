@@ -20,14 +20,8 @@ const SPLATS = {
 
 // Patio information
 const PATIO_INFO = {
-  casa1: {
-    name: "Tramas ocultas",
-    author: "UNIVERSIDAD ANÁHUAC CAMPUS PUEBLA",
-  },
-  casa2: {
-    name: "La ética de los cuidados",
-    author: "TECNOLÓGICO DE MONTERREY CAMPUS PUEBLA",
-  },
+  casa1: { name: "Tramas ocultas", author: "UNIVERSIDAD ANÁHUAC" },
+  casa2: { name: "La ética de los cuidados", author: "TEC DE MONTERREY" },
   casa3: { name: "Millar", author: "ANDRÉS Y JOSÉ + MAJO MENDOZA" },
   casa4: { name: "Una ventana hacia el pasado", author: "EMA" },
   casa5: { name: "Ciudad deshilada", author: "ARQUÍA" },
@@ -82,7 +76,59 @@ scene.add(splat);
 
 // Pointer-lock FPS controls
 const controls = new PointerLockControls(camera, renderer.domElement);
-renderer.domElement.addEventListener("click", () => controls.lock());
+renderer.domElement.addEventListener("click", () => {
+  // Only lock pointer on desktop (not touch devices)
+  if (!("ontouchstart" in window)) {
+    controls.lock();
+  }
+});
+
+// Touch controls for mobile
+let touchStartX = 0;
+let touchStartY = 0;
+let touchMoveActive = false;
+
+renderer.domElement.addEventListener("touchstart", (e) => {
+  if (e.touches.length === 1) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchMoveActive = true;
+  }
+});
+
+renderer.domElement.addEventListener(
+  "touchmove",
+  (e) => {
+    if (touchMoveActive && e.touches.length === 1) {
+      e.preventDefault();
+
+      const touchX = e.touches[0].clientX;
+      const touchY = e.touches[0].clientY;
+
+      const deltaX = touchX - touchStartX;
+      const deltaY = touchY - touchStartY;
+
+      // Rotate camera based on touch drag
+      const sensitivity = 0.002;
+      camera.rotation.y -= deltaX * sensitivity;
+      camera.rotation.x -= deltaY * sensitivity;
+
+      // Clamp vertical rotation
+      camera.rotation.x = Math.max(
+        -Math.PI / 2,
+        Math.min(Math.PI / 2, camera.rotation.x)
+      );
+
+      touchStartX = touchX;
+      touchStartY = touchY;
+    }
+  },
+  { passive: false }
+);
+
+renderer.domElement.addEventListener("touchend", () => {
+  touchMoveActive = false;
+});
 
 // Movement state
 const keys = { w: false, s: false, a: false, d: false, shift: false };
@@ -153,8 +199,23 @@ function move(dt) {
     forward /= mag;
     right /= mag;
     const speed = (keys.shift ? BASE_SPEED * SPRINT : BASE_SPEED) * dt;
-    controls.moveForward(forward * speed);
-    controls.moveRight(right * speed);
+
+    // For touch devices, move in camera's facing direction
+    if ("ontouchstart" in window) {
+      const direction = new THREE.Vector3();
+      camera.getWorldDirection(direction);
+      direction.y = 0;
+      direction.normalize();
+
+      const right3D = new THREE.Vector3();
+      right3D.crossVectors(camera.up, direction).normalize();
+
+      camera.position.addScaledVector(direction, forward * speed);
+      camera.position.addScaledVector(right3D, right * speed);
+    } else {
+      controls.moveForward(forward * speed);
+      controls.moveRight(right * speed);
+    }
   }
 
   camera.position.y = CAMERA_HEIGHT;
@@ -181,7 +242,11 @@ function clampToBounds() {
 
 // UI
 const hint = document.createElement("div");
-hint.textContent = "Click to look • WASD to move • Shift to sprint";
+// Detect if touch device
+const isTouchDevice = "ontouchstart" in window;
+hint.textContent = isTouchDevice
+  ? "Arrastra para mirar • Botones para moverte"
+  : "Click para mirar • WASD para moverte por el patio";
 Object.assign(hint.style, {
   position: "absolute",
   bottom: "12px",
@@ -232,10 +297,79 @@ Object.assign(back.style, {
 back.onclick = () => (window.location.href = "/");
 document.body.appendChild(back);
 
+// Mobile touch controls (on-screen buttons)
+if ("ontouchstart" in window) {
+  const controlsContainer = document.createElement("div");
+  Object.assign(controlsContainer.style, {
+    position: "absolute",
+    bottom: "60px",
+    right: "20px",
+    display: "grid",
+    gridTemplateColumns: "50px 50px 50px",
+    gridTemplateRows: "50px 50px",
+    gap: "8px",
+    zIndex: 10,
+  });
+
+  const buttonStyle = {
+    background: "rgba(17, 17, 17, 0.8)",
+    border: "1px solid #333",
+    borderRadius: "8px",
+    color: "#fff",
+    fontSize: "20px",
+    cursor: "pointer",
+    userSelect: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
+  };
+
+  // Create movement buttons
+  const buttons = [
+    { key: "w", label: "↑", row: 1, col: 2 },
+    { key: "a", label: "←", row: 2, col: 1 },
+    { key: "s", label: "↓", row: 2, col: 2 },
+    { key: "d", label: "→", row: 2, col: 3 },
+  ];
+
+  buttons.forEach(({ key, label, row, col }) => {
+    const btn = document.createElement("button");
+    btn.textContent = label;
+    Object.assign(btn.style, {
+      ...buttonStyle,
+      gridRow: row,
+      gridColumn: col,
+    });
+
+    btn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      keys[key] = true;
+      btn.style.background = "rgba(237, 30, 121, 0.8)";
+    });
+
+    btn.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      keys[key] = false;
+      btn.style.background = "rgba(17, 17, 17, 0.8)";
+    });
+
+    controlsContainer.appendChild(btn);
+  });
+
+  document.body.appendChild(controlsContainer);
+}
+
 // Animate
 renderer.setAnimationLoop(() => {
   const dt = clock.getDelta();
-  if (controls.isLocked) move(dt);
+
+  // Check if locked (desktop) or touch device
+  const isTouchDevice = "ontouchstart" in window;
+  if (controls.isLocked || isTouchDevice) {
+    move(dt);
+  }
+
   clampToBounds();
   renderer.render(scene, camera);
 });
