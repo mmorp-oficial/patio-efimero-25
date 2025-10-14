@@ -9,13 +9,13 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "casa1";
 
 const SPLATS = {
-  casa1: "/splats/gs_Anahuac_0.ply",
-  casa2: "/splats/gs_Etica_0.ply",
-  casa3: "/splats/gs_Millar_0.ply",
-  casa4: "/splats/gs_Ventana_0.ply",
-  casa5: "/splats/gs_Casa5_0.ply", // Add your actual file paths
-  casa6: "/splats/gs_Casa6_0.ply",
-  casa7: "/splats/gs_Casa7_0.ply",
+  casa1: "./splats/gs_Anahuac_0.ply",
+  casa2: "./splats/gs_Etica_0.ply",
+  casa3: "./splats/gs_Millar_0.ply",
+  casa4: "./splats/gs_Ventana_0.ply",
+  casa5: "./splats/gs_Casa5_0.ply", // Add your actual file paths
+  casa6: "./splats/gs_Casa6_0.ply",
+  casa7: "./splats/gs_Casa7_0.ply",
 };
 
 // Three.js setup
