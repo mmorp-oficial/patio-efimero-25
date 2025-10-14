@@ -207,7 +207,7 @@ locationMarkers.forEach((marker) => {
 function updateMarkers() {
   markerElements.forEach((marker, id) => {
     const pos = marker.position.clone();
-    pos.y += 5; // Move markers up by 2 units
+    pos.y += 5; // Move markers up
     pos.project(camera);
 
     // Convert to screen space
