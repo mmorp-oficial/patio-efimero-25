@@ -26,7 +26,7 @@
           Roboto, sans-serif;
         background: #ff7850;
         color: #fff;
-        line-height: 1.6;
+        line-height: 1.4;
       }
 
       .container {
@@ -41,12 +41,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 32px 48px;
+        padding: 8px 48px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       }
 
       .logo {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 600;
         letter-spacing: -0.5px;
         color: #fff;
@@ -67,17 +67,17 @@
 
       /* Main Content */
       main {
-        padding: 64px 48px;
+        padding: 0 48px 64px 48px;
       }
 
-      .hero {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
-        margin-bottom: 80px;
+      /* Map Section */
+      .map-section {
+        margin-top: 0;
+        margin-bottom: 64px;
+        position: relative;
       }
 
-      .hero-left h1 {
+      .map-container {
         font-size: 56px;
         font-weight: 600;
         line-height: 1.1;
@@ -110,14 +110,14 @@
 
       .project-info li {
         display: grid;
-        grid-template-columns: 100px 1fr;
-        padding: 16px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        grid-template-columns: 1fr 1fr;
+        padding: 4px 0;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.5);
         font-size: 15px;
       }
 
       .project-info li:first-child {
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-top: 2px solid rgba(255, 255, 255, 0.5);
       }
 
       .info-label {
@@ -127,19 +127,20 @@
 
       .info-value {
         color: #fff;
-        font-weight: 400;
+        font-weight: 600;
       }
 
       .hero-right {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 48px;
       }
 
       .hero-right p {
         font-size: 16px;
         line-height: 1.7;
         color: #fff;
+        font-weight: 00;
         text-align: justify;
       }
 
@@ -153,7 +154,7 @@
         width: 100%;
         height: 600px;
         background: #3186d6;
-        border-radius: 8px;
+        border-radius: 0;
         overflow: hidden;
         position: relative;
       }
@@ -211,14 +212,6 @@
         z-index: 10;
       }
 
-      /* Footer timestamp */
-      .timestamp {
-        padding: 32px 48px;
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 14px;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-      }
-
       /* Responsive */
       @media (max-width: 900px) {
         .hero {
@@ -231,14 +224,39 @@
         }
 
         header,
-        main,
-        .timestamp {
+        main {
           padding-left: 24px;
           padding-right: 24px;
         }
 
         .map-container {
           height: 400px;
+        }
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1.25fr; /* izquierda: título | derecha: info */
+        gap: 48px;
+        align-items: start;
+        margin-top: 16px;
+      }
+
+      .hero-left h1 {
+        font-size: clamp(40px, 6vw, 64px);
+        line-height: 1.1;
+        letter-spacing: -1px;
+      }
+
+      .hero-right {
+        display: flex;
+        flex-direction: column;
+        gap: 32px; /* puedes ajustar el espacio entre lista y párrafo */
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 32px;
         }
       }
     </style>
@@ -250,6 +268,14 @@
       </header>
 
       <main>
+        <section class="map-section">
+          <div class="map-container">
+            <div id="map">
+              <div class="map-hint">Haz clic en una casa para explorarla</div>
+            </div>
+          </div>
+        </section>
+
         <section class="hero">
           <div class="hero-left">
             <h1>
@@ -262,7 +288,9 @@
                 <span class="material-symbols-outlined">open_in_new</span>
               </a>
             </h1>
+          </div>
 
+          <div class="hero-right">
             <ul class="project-info">
               <li>
                 <span class="info-label">Año</span>
@@ -289,36 +317,17 @@
                 <span class="info-value">Puebla, México</span>
               </li>
             </ul>
-          </div>
-
-          <div class="hero-right">
-            <p>
-              Patio Efímero es una plataforma cultural que activa patios del
-              Centro Histórico de Puebla mediante intervenciones temporales. Son
-              espacios que por un instante cambian de ritmo: arte, diseño y
-              comunidad dialogan con la arquitectura que los sostiene.
-            </p>
 
             <p>
-              En CAMMARQ transformamos esas intervenciones en patrimonio
-              virtual. Registramos cada patio y lo convertimos en una
-              experiencia digital abierta: podrás recorrerlo a la distancia.
-              Este puente entre lo físico y lo digital amplía el acceso, fomenta
-              la participación y deja un registro del valor del patrimonio.
+              Patio Efímero activa patios del Centro Histórico de Puebla; en
+              CAMMARQ transformamos esas intervenciones en patrimonio virtual,
+              compartiendo cada patio como una experiencia digital abierta para
+              recorrer a distancia, ampliar el acceso y preservar su valor para
+              el futuro.
             </p>
-          </div>
-        </section>
-
-        <section class="map-section">
-          <div class="map-container">
-            <div id="map">
-              <div class="map-hint">Haz clic en una casa para explorarla</div>
-            </div>
           </div>
         </section>
       </main>
-
-      <footer class="timestamp">Puebla, México • Marzo 2025</footer>
     </div>
 
     <script type="module" src="/src/main.js"></script>
