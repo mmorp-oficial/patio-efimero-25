@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <title>Patio Efimero 6</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <style>
       :root {
         --bg: #ff7850;
@@ -19,7 +22,8 @@
       body {
         background: var(--bg);
         color: var(--ink);
-        font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -69,11 +73,7 @@
 
       .title h1 a .material-symbols-outlined {
         font-size: 0.6em;
-        font-variation-settings:
-          'FILL' 0,
-          'wght' 400,
-          'GRAD' 0,
-          'opsz' 24;
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
       }
 
       .locations {
@@ -110,7 +110,7 @@
       }
 
       #map {
-        background: #3186D6;
+        background: #3186d6;
         border-radius: 12px;
         flex: 1;
         overflow: hidden;
@@ -136,17 +136,18 @@
         position: absolute;
         width: 40px;
         height: 40px;
-        background: #8ADFE4;
-        border: 3px solid #ED1E79;
+        background: #3186d6;
+        border: 3px solid #ed1e79;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 700;
         font-size: 16px;
-        color: #ED1E79;
+        color: #ed1e79;
         cursor: pointer;
-        transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease,
+          box-shadow 0.3s ease;
         pointer-events: auto;
         z-index: 5;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -154,7 +155,7 @@
 
       .location-marker:hover {
         transform: scale(1.2);
-        background: #ED1E79;
+        background: #ed1e79;
         color: white;
         box-shadow: 0 6px 20px rgba(237, 30, 121, 0.4);
       }
@@ -180,24 +181,28 @@
         <section class="left">
           <div class="title">
             <h1>
-              <a href="https://www.patioefimero.org/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.patioefimero.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Patio Efímero 6
                 <span class="material-symbols-outlined">open_in_new</span>
               </a>
             </h1>
             <p>Explora los patios históricos de Puebla</p>
           </div>
-          
+
           <div class="locations">
             <h2>Ubicaciones</h2>
             <ol>
-              <li>Patio Anónimo</li>
-              <li>Patio Malicia</li>
-              <li>Casa Sacristía</li>
-              <li>Patio Mucho Bueno</li>
-              <li>Casa Sabino</li>
               <li>Casa Presno</li>
               <li>Gerencia del Centro Histórico</li>
+              <li>Casa Sacristía</li>
+              <li>Patio Malicia</li>
+              <li>Patio Anónimo</li>
+              <li>Patio Mucho Bueno</li>
+              <li>Casa Sabino</li>
             </ol>
           </div>
         </section>

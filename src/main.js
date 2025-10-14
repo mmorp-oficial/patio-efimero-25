@@ -105,7 +105,7 @@ controls.dampingFactor = 0.05;
 controls.maxPolarAngle = Math.PI * 0.5;
 controls.minPolarAngle = Math.PI * 0.1;
 controls.target.set(0, 0, 0);
-controls.screenSpacePanning = false; // Horizontal panning only (stays on ground plane)
+controls.screenSpacePanning = false; // Horizontal panning only
 
 // Create separate scene and camera for grain overlay
 const grainScene = new THREE.Scene();
@@ -140,12 +140,50 @@ const clickables = new Set();
 let hovered = null;
 let lastMaterialState = null;
 
-// Location markers data - adjust positions based on your actual house positions
+// Location markers data
 const locationMarkers = [
-  { id: "casa1", number: 1, position: new THREE.Vector3(0, 0, 0) },
-  { id: "casa2", number: 2, position: new THREE.Vector3(5, 0, 5) },
-  { id: "casa3", number: 3, position: new THREE.Vector3(-5, 0, 5) },
-  { id: "casa4", number: 4, position: new THREE.Vector3(0, 0, -5) },
+  {
+    id: "casa1",
+    number: 1,
+    name: "Casa Presno",
+    position: new THREE.Vector3(0, 0, 0),
+  },
+  {
+    id: "casa2",
+    number: 2,
+    name: "Gerencia del Centro Histórico",
+    position: new THREE.Vector3(0, 0, 0),
+  },
+  {
+    id: "casa3",
+    number: 3,
+    name: "Casa Sacristía",
+    position: new THREE.Vector3(0, 0, 0),
+  },
+  {
+    id: "casa4",
+    number: 4,
+    name: "Patio Malicia",
+    position: new THREE.Vector3(0, 0, 0),
+  },
+  {
+    id: "casa5",
+    number: 5,
+    name: "Patio Anónimo",
+    position: new THREE.Vector3(0, 0, 0),
+  },
+  {
+    id: "casa6",
+    number: 6,
+    name: "Patio Mucho Bueno",
+    position: new THREE.Vector3(0, 0, 0),
+  },
+  {
+    id: "casa7",
+    number: 7,
+    name: "Casa Sabino",
+    position: new THREE.Vector3(0, 0, 0),
+  },
 ];
 
 const markerElements = new Map();
@@ -169,7 +207,7 @@ locationMarkers.forEach((marker) => {
 function updateMarkers() {
   markerElements.forEach((marker, id) => {
     const pos = marker.position.clone();
-    pos.y += 4; // Move markers up by 2 units
+    pos.y += 5; // Move markers up by 2 units
     pos.project(camera);
 
     // Convert to screen space
@@ -205,7 +243,7 @@ function highlight(mesh) {
   hovered = mesh;
   lastMaterialState = null;
 
-  // Apply new highlight using color since we're using BasicMaterial
+  // Apply new highlight
   if (hovered) {
     const materials = Array.isArray(hovered.material)
       ? hovered.material
@@ -267,7 +305,7 @@ function findHouseId(node) {
   return null;
 }
 
-// Fix problematic materials by creating completely new ones
+// Fix problematic materials
 function fixMaterial(material) {
   // Use MeshBasicMaterial to avoid shader uniform issues
   const newMat = new THREE.MeshBasicMaterial();
@@ -374,7 +412,6 @@ loader.load(
           }
         } catch (error) {
           console.error(`Error processing mesh ${o.name}:`, error);
-          // Skip this mesh if there's an error
         }
       }
     });
@@ -410,7 +447,7 @@ loader.load(
     const maxDim = Math.max(sizeV.x, sizeV.y, sizeV.z);
     const fov = camera.fov * (Math.PI / 180);
     let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-    cameraZ *= 1.5; // Add some padding
+    cameraZ *= 1.5;
 
     camera.position.set(center.x, center.y + maxDim * 0.3, center.z + cameraZ);
     camera.lookAt(center);
@@ -436,7 +473,7 @@ loader.load(
 renderer.domElement.addEventListener("mousemove", onPointerMove);
 renderer.domElement.addEventListener("click", onClick);
 
-// Animation loop with error handling
+// Animation loop
 let renderError = false;
 
 function animate() {
@@ -480,7 +517,7 @@ function animate() {
         }
       });
 
-      renderError = false; // Try again
+      renderError = false;
     }
   }
 }
@@ -493,7 +530,7 @@ function resize() {
   renderer.setSize(w, h, false);
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
-  updateMarkers(); // Update marker positions on resize
+  updateMarkers();
 }
 resize();
 window.addEventListener("resize", resize);
