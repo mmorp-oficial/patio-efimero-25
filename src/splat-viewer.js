@@ -246,7 +246,7 @@ const hint = document.createElement("div");
 const isTouchDevice = "ontouchstart" in window;
 hint.textContent = isTouchDevice
   ? "Arrastra para mirar • Botones para moverte"
-  : "Click para mirar • WASD para moverte por el patio";
+  : "Click para mirar • WASD para moverte por el patio • ESC para salir";
 Object.assign(hint.style, {
   position: "absolute",
   bottom: "12px",

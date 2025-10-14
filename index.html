@@ -1,155 +1,169 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Patio Efimero 6</title>
+    <title>Patio Efímero 6</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <style>
-      :root {
-        --bg: #ff7850;
-        --ink: #111;
-        --panel: #ffffff;
-      }
-      html,
-      body {
-        height: 100%;
+      * {
         margin: 0;
-      }
-      body {
-        background: var(--bg);
-        color: var(--ink);
-        font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial,
-          sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .wrap {
-        width: min(100%, 1400px);
-        padding: 24px;
+        padding: 0;
         box-sizing: border-box;
       }
 
-      .split {
-        display: grid;
-        grid-template-columns: 1fr 1.5fr;
-        gap: 32px;
-        align-items: center;
+      body {
+        font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: #ff7850;
+        color: #fff;
+        line-height: 1.6;
       }
 
-      .left {
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ff7850;
+        min-height: 100vh;
+      }
+
+      /* Header */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 32px 48px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .logo {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        color: #fff;
+      }
+
+      .logo a {
+        color: #fff;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .logo .material-symbols-outlined {
+        font-size: 16px;
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
+      }
+
+      /* Main Content */
+      main {
+        padding: 64px 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        margin-bottom: 80px;
+      }
+
+      .hero-left h1 {
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -1.5px;
+        margin-bottom: 48px;
+      }
+
+      .hero-left h1 a {
+        color: #fff;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        transition: opacity 0.2s;
+      }
+
+      .hero-left h1 a:hover {
+        opacity: 0.8;
+      }
+
+      .hero-left h1 .material-symbols-outlined {
+        font-size: 0.6em;
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+
+      /* Project Info List */
+      .project-info {
+        list-style: none;
+      }
+
+      .project-info li {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 15px;
+      }
+
+      .project-info li:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .info-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 400;
+      }
+
+      .info-value {
+        color: #fff;
+        font-weight: 400;
+      }
+
+      .hero-right {
         display: flex;
         flex-direction: column;
         gap: 24px;
       }
 
-      .title {
-        color: #dfe8ff;
-      }
-      .title h1 {
-        margin: 0 0 16px 0;
-        font-size: clamp(32px, 5vw, 56px);
-        letter-spacing: 0.5px;
-        line-height: 1.1;
-      }
-
-      .title h1 a {
-        color: inherit;
-        text-decoration: none;
-        transition: opacity 0.2s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .title h1 a:hover {
-        opacity: 0.8;
-      }
-
-      .title h1 a .material-symbols-outlined {
-        font-size: 0.6em;
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-      }
-
-      .locations {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 24px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      .locations h2 {
-        margin: 0 0 16px 0;
-        font-size: 20px;
-        color: var(--ink);
-      }
-
-      .locations ol {
-        margin: 0;
-        padding-left: 24px;
-      }
-
-      .locations li {
-        margin: 8px 0;
-        color: #444;
-        line-height: 1.5;
-      }
-
-      .description {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 24px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      .description p {
-        margin: 0 0 16px 0;
-        color: #444;
-        line-height: 1.6;
+      .hero-right p {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #fff;
         text-align: justify;
       }
 
-      .description p:last-child {
-        margin-bottom: 0;
+      /* Map Section */
+      .map-section {
+        margin-top: 64px;
+        position: relative;
       }
 
-      .map-panel {
-        background: var(--panel);
-        border-radius: 16px;
-        padding: 16px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      .map-container {
+        width: 100%;
         height: 600px;
-        display: flex;
-      }
-
-      #map {
         background: #3186d6;
-        border-radius: 12px;
-        flex: 1;
+        border-radius: 8px;
         overflow: hidden;
         position: relative;
       }
 
-      .map-hint {
-        position: absolute;
-        bottom: 16px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 13px;
-        pointer-events: none;
-        z-index: 10;
+      #map {
+        width: 100%;
+        height: 100%;
       }
 
-      /* Floating location markers */
+      /* Location markers for map */
       .location-marker {
         position: absolute;
         width: 40px;
@@ -183,21 +197,61 @@
         pointer-events: none;
       }
 
-      @media (max-width: 1024px) {
-        .split {
+      .map-hint {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      /* Footer timestamp */
+      .timestamp {
+        padding: 32px 48px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .hero {
           grid-template-columns: 1fr;
+          gap: 48px;
         }
-        .map-panel {
-          height: 500px;
+
+        .hero-left h1 {
+          font-size: 40px;
+        }
+
+        header,
+        main,
+        .timestamp {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+
+        .map-container {
+          height: 400px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <div class="split">
-        <section class="left">
-          <div class="title">
+    <div class="container">
+      <header>
+        <div class="logo">CAMMARQ + Patio Efímero</div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-left">
             <h1>
               <a
                 href="https://www.patioefimero.org/"
@@ -208,23 +262,36 @@
                 <span class="material-symbols-outlined">open_in_new</span>
               </a>
             </h1>
-            <p>Explora los patios históricos de Puebla</p>
+
+            <ul class="project-info">
+              <li>
+                <span class="info-label">Año</span>
+                <span class="info-value">2025</span>
+              </li>
+              <li>
+                <span class="info-label">Tipo</span>
+                <span class="info-value">Patrimonio Virtual</span>
+              </li>
+              <li>
+                <span class="info-label">Ubicaciones</span>
+                <span class="info-value">
+                  Casa Presno<br />
+                  Gerencia del Centro Histórico<br />
+                  Casa Sacristía<br />
+                  Patio Malicia<br />
+                  Patio Anónimo<br />
+                  Patio Mucho Bueno<br />
+                  Casa Sabino
+                </span>
+              </li>
+              <li>
+                <span class="info-label">Ciudad</span>
+                <span class="info-value">Puebla, México</span>
+              </li>
+            </ul>
           </div>
 
-          <div class="locations">
-            <h2>Ubicaciones</h2>
-            <ol>
-              <li>Casa Presno</li>
-              <li>Gerencia del Centro Histórico</li>
-              <li>Casa Sacristía</li>
-              <li>Patio Malicia</li>
-              <li>Patio Anónimo</li>
-              <li>Patio Mucho Bueno</li>
-              <li>Casa Sabino</li>
-            </ol>
-          </div>
-
-          <div class="description">
+          <div class="hero-right">
             <p>
               Patio Efímero es una plataforma cultural que activa patios del
               Centro Histórico de Puebla mediante intervenciones temporales. Son
@@ -242,14 +309,16 @@
           </div>
         </section>
 
-        <section class="right">
-          <div class="map-panel">
+        <section class="map-section">
+          <div class="map-container">
             <div id="map">
               <div class="map-hint">Haz clic en una casa para explorarla</div>
             </div>
           </div>
         </section>
-      </div>
+      </main>
+
+      <footer class="timestamp">Puebla, México • Marzo 2025</footer>
     </div>
 
     <script type="module" src="/src/main.js"></script>
