@@ -110,7 +110,7 @@ renderer.domElement.addEventListener(
 
       // Rotate camera based on touch drag
       const sensitivity = 0.002;
-      camera.rotation.y -= deltaX * sensitivity;
+      camera.rotation.y -= deltaX * sensitivity; // This controls left/right looking
       camera.rotation.x -= deltaY * sensitivity;
 
       // Clamp vertical rotation
@@ -211,7 +211,7 @@ function move(dt) {
       right3D.crossVectors(camera.up, direction).normalize();
 
       camera.position.addScaledVector(direction, forward * speed);
-      camera.position.addScaledVector(right3D, right * speed);
+      camera.position.addScaledVector(right3D, -right * speed); // Negated right for correct direction
     } else {
       controls.moveForward(forward * speed);
       controls.moveRight(right * speed);
