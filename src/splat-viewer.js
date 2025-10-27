@@ -15,7 +15,7 @@ const SPLATS = {
   casa4: "/splats/gs_Ventana_0.ply",
   casa5: "/splats/gs_PatioHilos_0.ply",
   casa6: "/splats/gs_Biombo_0.ply", // Add your actual file path
-  casa7: "/splats/gs_Casa7_0.ply",
+  casa7: "/splats/gs_Gallito_0.ply",
 };
 
 // Patio information
