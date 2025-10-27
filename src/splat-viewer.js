@@ -14,7 +14,7 @@ const SPLATS = {
   casa3: "/splats/gs_Millar_0.ply",
   casa4: "/splats/gs_Ventana_0.ply",
   casa5: "/splats/gs_PatioHilos_0.ply",
-  casa6: "/splats/gs_Casa6_0.ply", // Add your actual file path
+  casa6: "/splats/gs_Biombo_0.ply", // Add your actual file path
   casa7: "/splats/gs_Casa7_0.ply",
 };
 
