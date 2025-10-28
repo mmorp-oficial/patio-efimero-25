@@ -25,9 +25,27 @@ const PATIO_INFO = {
   casa3: { name: "Millar", author: "ANDRÉS Y JOSÉ + MAJO MENDOZA" },
   casa4: { name: "Una ventana hacia el pasado", author: "EMA" },
   casa5: { name: "Ciudad deshilada", author: "ARQUÍA" },
-  casa6: { name: "Paisajes urbanos trans(h)istóricos", author: "NOSOTRANS" },
-  casa7: { name: "Biombo Urbano", author: "COLECTIVO ÁGORA" },
+  casa6: { name: "Biombo Urbano", author: "COLECTIVO ÁGORA" },
+  casa7: { name: "Paisajes urbanos trans(h)istóricos", author: "NOSOTRANS" },
 };
+
+// Movement bounds for each house - adjust these values per location
+const BOUNDS_CONFIG = {
+  casa1: { minX: -0.65, maxX: 0.5, minZ: -1.8, maxZ: 0.05 },
+  casa2: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+  casa3: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+  casa4: { minX: -3, maxX: 0.3, minZ: -0.7, maxZ: 0.7 }, // Una ventana hacia el pasado
+  casa5: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+  casa6: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+  casa7: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+};
+
+// Get bounds for current house
+const houseBounds = BOUNDS_CONFIG[id] || BOUNDS_CONFIG.casa1;
+const bounds = new THREE.Box3(
+  new THREE.Vector3(houseBounds.minX, -10, houseBounds.minZ),
+  new THREE.Vector3(houseBounds.maxX, 10, houseBounds.maxZ)
+);
 
 // Three.js setup
 const container = document.getElementById("viewer") || document.body;
@@ -221,11 +239,6 @@ function move(dt) {
   camera.position.y = CAMERA_HEIGHT;
 }
 
-// Bounds
-const bounds = new THREE.Box3(
-  new THREE.Vector3(-50, -10, -50),
-  new THREE.Vector3(50, 10, 50)
-);
 function clampToBounds() {
   camera.position.x = THREE.MathUtils.clamp(
     camera.position.x,
@@ -238,6 +251,13 @@ function clampToBounds() {
     bounds.max.z
   );
   camera.position.y = CAMERA_HEIGHT;
+
+  // Debug: Log player position
+  console.log(
+    `Position: x=${camera.position.x.toFixed(2)}, z=${camera.position.z.toFixed(
+      2
+    )}`
+  );
 }
 
 // UI
@@ -246,7 +266,7 @@ const hint = document.createElement("div");
 const isTouchDevice = "ontouchstart" in window;
 hint.textContent = isTouchDevice
   ? "Arrastra para mirar • Botones para moverte"
-  : "Click para mirar • WASD para moverte por el patio • ESC para salir";
+  : "Click para mirar • WASD para moverte por el patio";
 Object.assign(hint.style, {
   position: "absolute",
   bottom: "12px",
