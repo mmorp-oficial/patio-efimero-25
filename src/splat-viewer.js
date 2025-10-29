@@ -32,12 +32,12 @@ const PATIO_INFO = {
 // Movement bounds for each house - adjust these values per location
 const BOUNDS_CONFIG = {
   casa1: { minX: -0.65, maxX: 0.5, minZ: -1.8, maxZ: 0.05 },
-  casa2: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
-  casa3: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+  casa2: { minX: -1, maxX: 0.9, minZ: -1.6, maxZ: 0.1 },
+  casa3: { minX: -1.7, maxX: 1.5, minZ: -4.2, maxZ: 0.2 },
   casa4: { minX: -3, maxX: 0.3, minZ: -0.7, maxZ: 0.7 }, // Una ventana hacia el pasado
-  casa5: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+  casa5: { minX: -2, maxX: 1.5, minZ: -0.75, maxZ: 0.75 },
   casa6: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
-  casa7: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+  casa7: { minX: -1.5, maxX: 1, minZ: -0.5, maxZ: 1 },
 };
 
 // Get bounds for current house
