@@ -143,7 +143,7 @@ const sunMaterial = new THREE.MeshBasicMaterial({
   depthWrite: false,
 });
 const sunPlane = new THREE.Mesh(sunGeometry, sunMaterial);
-sunPlane.position.set(-200, 100, 200); // Position far away like the sun
+sunPlane.position.set(-200, 10, 200); // Position far away like the sun
 sunPlane.lookAt(0, 0, 0); // Face toward the center
 scene.add(sunPlane);
 
