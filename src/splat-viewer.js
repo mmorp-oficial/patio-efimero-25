@@ -14,7 +14,7 @@ const SPLATS = {
   casa3: "/splats/gs_Millar_0.ply",
   casa4: "/splats/gs_Ventana_0.ply",
   casa5: "/splats/gs_PatioHilos_0.ply",
-  casa6: "/splats/gs_Biombo_0.ply", // Add your actual file path
+  casa6: "/splats/gs_Biombo_0.ply",
   casa7: "/splats/gs_Gallito_0.ply",
 };
 
@@ -34,10 +34,21 @@ const BOUNDS_CONFIG = {
   casa1: { minX: -0.65, maxX: 0.5, minZ: -1.8, maxZ: 0.05 },
   casa2: { minX: -1, maxX: 0.9, minZ: -1.6, maxZ: 0.1 },
   casa3: { minX: -1.7, maxX: 1.5, minZ: -4.2, maxZ: 0.2 },
-  casa4: { minX: -3, maxX: 0.3, minZ: -0.7, maxZ: 0.7 }, // Una ventana hacia el pasado
+  casa4: { minX: -3, maxX: 0.3, minZ: -0.7, maxZ: 0.7 },
   casa5: { minX: -2, maxX: 1.5, minZ: -0.75, maxZ: 0.75 },
   casa6: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
   casa7: { minX: -1.5, maxX: 1, minZ: -0.5, maxZ: 1 },
+};
+
+// Cube dimensions for each house - adjust to fit the scene
+const CUBE_CONFIG = {
+  casa1: { width: 2, height: 5, depth: 5, y: 0 },
+  casa2: { width: 5, height: 4, depth: 5, y: 0 },
+  casa3: { width: 6, height: 4, depth: 9, y: 0 },
+  casa4: { width: 10, height: 10, depth: 10, y: 0 },
+  casa5: { width: 10, height: 10, depth: 10, y: 0 },
+  casa6: { width: 10, height: 10, depth: 10, y: 0 },
+  casa7: { width: 10, height: 10, depth: 10, y: 0 },
 };
 
 // Get bounds for current house
@@ -49,6 +60,79 @@ const bounds = new THREE.Box3(
 
 // Three.js setup
 const container = document.getElementById("viewer") || document.body;
+
+// Create loading screen
+const loadingScreen = document.createElement("div");
+loadingScreen.id = "loading-screen";
+loadingScreen.innerHTML = `
+  <div class="loading-content">
+    <div class="spinner"></div>
+    <div class="loading-text">CAMMARQ</div>
+    <div class="loading-subtext">Construyendo el Futuro</div>
+  </div>
+`;
+document.body.appendChild(loadingScreen);
+
+// Add loading screen styles
+const loadingStyles = document.createElement("style");
+loadingStyles.textContent = `
+  #loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+  }
+
+  #loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .loading-content {
+    text-align: center;
+    color: white;
+  }
+
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 32px auto;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .loading-text {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    font-family: 'Manrope', sans-serif;
+  }
+
+  .loading-subtext {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    font-family: 'Manrope', sans-serif;
+  }
+`;
+document.head.appendChild(loadingStyles);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -88,9 +172,70 @@ const splat = new SplatMesh({
   onLoad: () => {
     console.log("Splat ready:", id);
     splat.rotation.x = Math.PI;
+
+    // Hide loading screen after splat loads
+    setTimeout(() => {
+      loadingScreen.classList.add("hidden");
+      setTimeout(() => {
+        loadingScreen.remove();
+      }, 500);
+    }, 500);
   },
 });
 scene.add(splat);
+
+// Create white cube without top face
+const cubeConfig = CUBE_CONFIG[id] || CUBE_CONFIG.casa1;
+
+// Create shader material for gradient alpha on walls
+const vertexShader = `
+  varying vec3 vPosition;
+  void main() {
+    vPosition = position;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const fragmentShader = `
+  uniform float height;
+  varying vec3 vPosition;
+  void main() {
+    // Calculate alpha based on height (1 at bottom, 0 at top)
+    float alpha = 1.0 - (vPosition.y + height * 0.5) / height;
+    alpha = clamp(alpha, 0.0, 1.0);
+    gl_FragColor = vec4(1.0, 1.0, 1.0, alpha);
+  }
+`;
+
+const wallMaterial = new THREE.ShaderMaterial({
+  vertexShader: vertexShader,
+  fragmentShader: fragmentShader,
+  uniforms: {
+    height: { value: cubeConfig.height },
+  },
+  transparent: true,
+  side: THREE.BackSide,
+  depthWrite: false,
+});
+
+// Create materials - gradient for walls, solid for floor, invisible for top
+const materials = [
+  wallMaterial.clone(), // Right
+  wallMaterial.clone(), // Left
+  new THREE.MeshBasicMaterial({ visible: false }), // Top - invisible
+  new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.BackSide }), // Bottom - solid
+  wallMaterial.clone(), // Front
+  wallMaterial.clone(), // Back
+];
+
+const cubeGeometry = new THREE.BoxGeometry(
+  cubeConfig.width,
+  cubeConfig.height,
+  cubeConfig.depth
+);
+const cube = new THREE.Mesh(cubeGeometry, materials);
+cube.position.y = cubeConfig.y;
+scene.add(cube);
 
 // Pointer-lock FPS controls
 const controls = new PointerLockControls(camera, renderer.domElement);
