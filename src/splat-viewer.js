@@ -409,15 +409,36 @@ function clampToBounds() {
 const hint = document.createElement("div");
 // Detect if touch device
 const isTouchDevice = "ontouchstart" in window;
-hint.textContent = isTouchDevice
+hint.innerHTML = isTouchDevice
   ? "Arrastra para mirar • Botones para moverte"
-  : "Click para mirar • WASD para moverte por el patio";
+  : `
+    <div style="margin-bottom: 8px;">
+      <span style="background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3);">ESC</span>
+      para mostrar cursor
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="display: flex; gap: 2px;">
+        <span style="background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3); min-width: 24px; text-align: center;">W</span>
+        <span style="background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3); min-width: 24px; text-align: center;">A</span>
+        <span style="background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3); min-width: 24px; text-align: center;">S</span>
+        <span style="background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3); min-width: 24px; text-align: center;">D</span>
+      </div>
+      <span>o</span>
+      <div style="display: flex; gap: 2px;">
+        <span style="background: rgba(255,255,255,0.15); padding: 4px 6px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3); min-width: 24px; text-align: center;">↑</span>
+        <span style="background: rgba(255,255,255,0.15); padding: 4px 6px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3); min-width: 24px; text-align: center;">←</span>
+        <span style="background: rgba(255,255,255,0.15); padding: 4px 6px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3); min-width: 24px; text-align: center;">↓</span>
+        <span style="background: rgba(255,255,255,0.15); padding: 4px 6px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255,255,255,0.3); min-width: 24px; text-align: center;">→</span>
+      </div>
+      <span>para moverte</span>
+    </div>
+  `;
 Object.assign(hint.style, {
   position: "absolute",
   bottom: "12px",
   left: "12px",
   color: "#ddd",
-  font: "12px/1.2 system-ui, sans-serif",
+  font: "12px/1.4 system-ui, sans-serif",
   opacity: "0.8",
   pointerEvents: "none",
 });
@@ -436,7 +457,7 @@ titleOverlay.innerHTML = `
 `;
 Object.assign(titleOverlay.style, {
   position: "absolute",
-  bottom: "48px",
+  bottom: "96px",
   left: "12px",
   color: "#fff",
   font: "14px/1.4 system-ui, sans-serif",

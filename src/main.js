@@ -133,6 +133,20 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(10, 20, 10);
 scene.add(directionalLight);
 
+// Add sun plane with custom image
+const sunTexture = new THREE.TextureLoader().load("textures/ojo.png");
+const sunGeometry = new THREE.PlaneGeometry(50, 50);
+const sunMaterial = new THREE.MeshBasicMaterial({
+  map: sunTexture,
+  transparent: true,
+  side: THREE.DoubleSide,
+  depthWrite: false,
+});
+const sunPlane = new THREE.Mesh(sunGeometry, sunMaterial);
+sunPlane.position.set(-200, 100, 200); // Position far away like the sun
+sunPlane.lookAt(0, 0, 0); // Face toward the center
+scene.add(sunPlane);
+
 // Hover/click machinery
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -196,7 +210,7 @@ locationMarkers.forEach((marker) => {
   el.dataset.houseId = marker.id;
 
   el.addEventListener("click", () => {
-    window.location.href = `/splat.html?id=${encodeURIComponent(marker.id)}`;
+    window.location.href = `./splat.html?id=${encodeURIComponent(marker.id)}`;
   });
 
   container.appendChild(el);
@@ -207,7 +221,7 @@ locationMarkers.forEach((marker) => {
 function updateMarkers() {
   markerElements.forEach((marker, id) => {
     const pos = marker.position.clone();
-    pos.y += 5; // Move markers up
+    pos.y += 2; // Move markers up by 2 units
     pos.project(camera);
 
     // Convert to screen space
@@ -369,7 +383,7 @@ function onClick() {
   const id = findHouseId(hovered);
   if (id) {
     console.log(`Navigating to splat view for: ${id}`);
-    window.location.href = `/splat.html?id=${encodeURIComponent(id)}`;
+    window.location.href = `./splat.html?id=${encodeURIComponent(id)}`;
   } else {
     console.warn("Clicked object has no house ID:", hovered.name);
   }
