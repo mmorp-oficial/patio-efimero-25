@@ -77,7 +77,7 @@ const BOUNDS_CONFIG = {
   casa3: { minX: -1.7, maxX: 1.5, minZ: -4.2, maxZ: 0.2 },
   casa4: { minX: -3, maxX: 0.3, minZ: -0.7, maxZ: 0.7 },
   casa5: { minX: -2, maxX: 1.5, minZ: -0.75, maxZ: 0.75 },
-  casa6: { minX: -50, maxX: 50, minZ: -50, maxZ: 50 },
+  casa6: { minX: -1.2, maxX: 1.2, minZ: -1.2, maxZ: 1 },
   casa7: { minX: -1.5, maxX: 1, minZ: -0.5, maxZ: 1 },
 };
 
