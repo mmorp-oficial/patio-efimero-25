@@ -4,6 +4,13 @@ import { PointerLockControls } from "three/examples/jsm/controls/PointerLockCont
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { SplatMesh } from "@sparkjsdev/spark";
 
+// Load Material Symbols font
+const link = document.createElement("link");
+link.rel = "stylesheet";
+link.href =
+  "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200";
+document.head.appendChild(link);
+
 // Get house ID from URL
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "casa1";
@@ -20,15 +27,49 @@ const SPLATS = {
 
 // Patio information
 const PATIO_INFO = {
-  casa1: { name: "Tramas ocultas", author: "UNIVERSIDAD ANÁHUAC" },
-  casa2: { name: "La ética de los cuidados", author: "TEC DE MONTERREY" },
-  casa3: { name: "Millar", author: "ANDRÉS Y JOSÉ + MAJO MENDOZA" },
-  casa4: { name: "Una ventana hacia el pasado", author: "EMA" },
-  casa5: { name: "Ciudad deshilada", author: "ARQUÍA" },
-  casa6: { name: "Biombo Urbano", author: "COLECTIVO ÁGORA" },
-  casa7: { name: "Paisajes urbanos trans(h)istóricos", author: "NOSOTRANS" },
+  casa1: {
+    name: "Tramas ocultas",
+    author: "UNIVERSIDAD ANÁHUAC",
+    description:
+      "La ciudad se revela aquí como aula abierta, un territorio donde historia, memoria y poder se entrelazan. Esta instalación propone al Paisaje Urbano Histórico como herramienta crítica y sensible para repensar la enseñanza de la arquitectura y el urbanismo. Más que una representación del pasado, es un dispositivo pedagógico que invita a habitar, leer y transformar la ciudad desde sus barrios fundacionales. En ellos, lo visible convive con lo olvidado, recordando que el conocimiento del espacio urbano no se enseña solo en planos, sino en las calles donde la memoria colectiva sigue construyendo su forma.",
+  },
+  casa2: {
+    name: "La ética de los cuidados",
+    author: "TEC DE MONTERREY",
+    description:
+      "La intervención transforma el recorrido entre dos patios en una experiencia simbólica que revela lo invisible de la ciudad. Desde una mirada de género, invita a pensar cómo el espacio urbano se ha construido a partir de una lógica productiva que excluye las tareas que sostienen la vida. Alimentar, limpiar, acompañar o consolar se reconocen aquí como actos esenciales: una infraestructura afectiva y política que hace posible habitar. Este tránsito propone un encuentro entre lo privado y lo público, entre el silencio doméstico y la memoria colectiva.",
+  },
+  casa3: {
+    name: "Millar",
+    author: "ANDRÉS Y JOSÉ + MAJO MENDOZA",
+    description:
+      "Un manto de mil ladrillos transforma el patio en una topografía habitable que reinterpreta el corazón doméstico de Puebla. El tabique, materia fundacional de la ciudad, se libera aquí de su función estructural para convertirse en metáfora de un territorio en constante cambio. Algunas piezas permanecen sueltas: pueden moverse, girarse o reagruparse, invitando a imaginar la ciudad como un organismo vivo, nunca terminado. El visitante deja de ser espectador y se convierte en agente de transformación. Cada desplazamiento, cada gesto, recuerda que el espacio urbano —como la memoria— se construye y reconstruye sin cesar.",
+  },
+  casa4: {
+    name: "Una ventana hacia el pasado",
+    author: "EMA",
+    description:
+      "La instalación abre un umbral entre el presente y las raíces que nos sostienen. A partir del maíz —semilla, alimento y símbolo— se construye un paisaje efímero hecho de hojas y roca volcánica que evoca los campos de cultivo y su memoria ancestral. El visitante camina entre los restos del ciclo agrícola, escuchando el crujir de las hojas que regresan a la tierra. La obra invita a mirar más allá de lo inmediato: a reconocer en el maíz la continuidad de la vida, la resistencia frente a la homogeneización y la memoria viva que une comunidad, naturaleza y tiempo.",
+  },
+  casa5: {
+    name: "Ciudad deshilada",
+    author: "ARQUÍA",
+    description:
+      "Texto descriptivo para Casa 5. Agrega aquí la información específica de este patio.",
+  },
+  casa6: {
+    name: "Biombo Urbano",
+    author: "COLECTIVO ÁGORA",
+    description:
+      "Texto descriptivo para Casa 6. Agrega aquí la información específica de este patio.",
+  },
+  casa7: {
+    name: "Paisajes urbanos trans(h)istóricos",
+    author: "NOSOTRANS",
+    description:
+      "Esta intervención nace de las vivencias y memorias de las personas trans que habitan y recorren el paisaje urbano histórico de Puebla. A partir de la reinterpretación de símbolos como El Reloj del Gallito, Los Ángeles y las placas de calle, se propone una lectura plural del patrimonio. La obra visibiliza cuerpos, gestos y expresiones que resisten la violencia y la exclusión, reivindicando las manifestaciones callejeras, los mercados y las ferias como parte esencial de la identidad urbana. Es un llamado a reconocer que la historia de la ciudad también se escribe en los márgenes.",
+  },
 };
-
 // Movement bounds for each house - adjust these values per location
 const BOUNDS_CONFIG = {
   casa1: { minX: -0.65, maxX: 0.5, minZ: -1.8, maxZ: 0.05 },
@@ -444,27 +485,105 @@ Object.assign(hint.style, {
 });
 document.body.appendChild(hint);
 
-// Title overlay (bottom left like Luma)
+// Title overlay (bottom left)
 const info = PATIO_INFO[id] || {
   name: "Patio Desconocido",
   author: "AUTOR PENDIENTE",
+  description: "Sin descripción.",
 };
 
 const titleOverlay = document.createElement("div");
 titleOverlay.innerHTML = `
-  <div style="font-size: 22px; opacity: 0.7; margin-bottom: 4px; letter-spacing: 0.5px;">Por ${info.author}</div>
-  <div style="font-size: 32px; font-weight: 600; line-height: 1.2;">${info.name}</div>
+  <div id="titleContent" style="transition: transform 0.3s ease;">
+    <div style="font-size: 22px; opacity: 0.7; margin-bottom: 4px; letter-spacing: 0.5px;">Por ${info.author}</div>
+    <div style="font-size: 32px; font-weight: 600; line-height: 1.2; display: flex; align-items: center; gap: 12px;">
+      ${info.name}
+      <button id="infoToggle" style="
+        width: 36px;
+        height: 36px;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+        padding: 0;
+      ">
+        <span class="material-symbols-outlined" style="font-size: 24px;">expand_circle_up</span>
+      </button>
+    </div>
+  </div>
+  <div id="descriptionPanel" style="
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, margin-top 0.3s ease;
+    margin-top: 0;
+  ">
+    <div style="
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      margin-top: 16px;
+      backdrop-filter: blur(10px);
+    ">
+      <div style="font-size: 14px; line-height: 1.6; opacity: 0.9;">
+        ${info.description}
+      </div>
+    </div>
+  </div>
 `;
 Object.assign(titleOverlay.style, {
   position: "absolute",
   bottom: "96px",
   left: "12px",
+  maxWidth: "600px",
   color: "#fff",
   font: "14px/1.4 system-ui, sans-serif",
-  pointerEvents: "none",
+  pointerEvents: "auto",
   textShadow: "0 2px 4px rgba(0,0,0,0.9)",
 });
 document.body.appendChild(titleOverlay);
+
+// Toggle description functionality
+setTimeout(() => {
+  const toggleBtn = document.getElementById("infoToggle");
+  const titleContent = document.getElementById("titleContent");
+  const descPanel = document.getElementById("descriptionPanel");
+  let isOpen = false;
+
+  if (toggleBtn && titleContent && descPanel) {
+    const icon = toggleBtn.querySelector(".material-symbols-outlined");
+
+    toggleBtn.onmouseenter = () => {
+      toggleBtn.style.background = "rgba(0, 0, 0, 0.9)";
+      toggleBtn.style.transform = "scale(1.1)";
+    };
+    toggleBtn.onmouseleave = () => {
+      toggleBtn.style.background = "rgba(0, 0, 0, 0.7)";
+      toggleBtn.style.transform = "scale(1)";
+    };
+
+    toggleBtn.onclick = () => {
+      isOpen = !isOpen;
+      if (isOpen) {
+        titleContent.style.transform = "translateY(-20px)";
+        descPanel.style.maxHeight = "300px";
+        descPanel.style.marginTop = "16px";
+        icon.textContent = "expand_circle_down";
+      } else {
+        titleContent.style.transform = "translateY(0)";
+        descPanel.style.maxHeight = "0";
+        descPanel.style.marginTop = "0";
+        icon.textContent = "expand_circle_up";
+      }
+    };
+  }
+}, 100);
 
 const back = document.createElement("button");
 back.textContent = "← Back";
