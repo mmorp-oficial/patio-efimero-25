@@ -26,7 +26,7 @@
           Roboto, sans-serif;
         background: #ff7850;
         color: #fff;
-        line-height: 1.4;
+        line-height: 1.6;
       }
 
       .container {
@@ -41,28 +41,15 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 8px 48px;
+        padding: 32px 48px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       }
 
       .logo {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 600;
         letter-spacing: -0.5px;
         color: #fff;
-      }
-
-      .logo a {
-        color: #fff;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .logo .material-symbols-outlined {
-        font-size: 16px;
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
       }
 
       /* Main Content */
@@ -78,11 +65,51 @@
       }
 
       .map-container {
+        width: 100%;
+        height: 600px;
+        background: #3186d6;
+        border-radius: 0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+
+      .map-hint {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      /* Hero Section */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+      }
+
+      .hero-left {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .hero-left h1 {
         font-size: 56px;
         font-weight: 600;
         line-height: 1.1;
         letter-spacing: -1.5px;
-        margin-bottom: 48px;
+        margin: 0;
       }
 
       .hero-left h1 a {
@@ -111,13 +138,13 @@
       .project-info li {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        padding: 4px 0;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+        padding: 16px 0;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
         font-size: 15px;
       }
 
       .project-info li:first-child {
-        border-top: 2px solid rgba(255, 255, 255, 0.5);
+        border-top: 2px solid rgba(255, 255, 255, 0.2);
       }
 
       .info-label {
@@ -127,7 +154,7 @@
 
       .info-value {
         color: #fff;
-        font-weight: 600;
+        font-weight: 400;
       }
 
       .hero-right {
@@ -136,32 +163,19 @@
         gap: 48px;
       }
 
+      .hero-right h2 {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 0;
+        color: #fff;
+      }
+
       .hero-right p {
         font-size: 16px;
         line-height: 1.7;
         color: #fff;
-        font-weight: 00;
         text-align: justify;
-      }
-
-      /* Map Section */
-      .map-section {
-        margin-top: 64px;
-        position: relative;
-      }
-
-      .map-container {
-        width: 100%;
-        height: 600px;
-        background: #3186d6;
-        border-radius: 0;
-        overflow: hidden;
-        position: relative;
-      }
-
-      #map {
-        width: 100%;
-        height: 100%;
       }
 
       /* Location markers for map */
@@ -198,19 +212,45 @@
         pointer-events: none;
       }
 
-      .map-hint {
-        position: absolute;
-        bottom: 16px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
+      /* Partners Carousel */
+      .partners-section {
+        padding: 48px;
+        border-top: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .partners-title {
         font-size: 14px;
-        pointer-events: none;
-        z-index: 10;
-        letter-spacing: 0;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        opacity: 0.7;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .partners-carousel {
+        display: flex;
+        gap: 32px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 100%;
+        min-height: 60px;
+      }
+
+      .partner-logo {
+        height: 45px;
+        width: auto;
+        object-fit: contain;
+        opacity: 0.9;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        filter: brightness(0) invert(1);
+        flex-shrink: 0;
+      }
+
+      .partner-logo:hover {
+        opacity: 1;
+        transform: scale(1.05);
       }
 
       /* Responsive */
@@ -225,7 +265,8 @@
         }
 
         header,
-        main {
+        main,
+        .partners-section {
           padding-left: 24px;
           padding-right: 24px;
         }
@@ -233,31 +274,10 @@
         .map-container {
           height: 400px;
         }
-      }
-      .hero {
-        display: grid;
-        grid-template-columns: 1fr 1.25fr; /* izquierda: título | derecha: info */
-        gap: 48px;
-        align-items: start;
-        margin-top: 16px;
-      }
 
-      .hero-left h1 {
-        font-size: clamp(40px, 6vw, 64px);
-        line-height: 1.1;
-        letter-spacing: -1px;
-      }
-
-      .hero-right {
-        display: flex;
-        flex-direction: column;
-        gap: 32px; /* puedes ajustar el espacio entre lista y párrafo */
-      }
-
-      @media (max-width: 900px) {
-        .hero {
-          grid-template-columns: 1fr;
-          gap: 32px;
+        .partner-logo {
+          height: 35px;
+          max-width: 100px;
         }
       }
     </style>
@@ -319,16 +339,87 @@
               </li>
             </ul>
 
+            <h2>Exposición virtual de la 6ª edición de Patio Efímero</h2>
             <p>
-              Patio Efímero activa patios del Centro Histórico de Puebla; en
-              CAMMARQ transformamos esas intervenciones en patrimonio virtual,
-              compartiendo cada patio como una experiencia digital abierta para
-              recorrer a distancia, ampliar el acceso y preservar su valor para
-              el futuro.
+              En esta edición, Patio Efímero se transforma en territorio digital
+              para contemplar el paisaje urbano histórico desde otra orilla. Las
+              instalaciones que ocuparon los patios del Centro Histórico de
+              Puebla, construidos de materia sólida, son ahora memoria viva
+              traducida en luz y píxel.<br /><br />
+            </p>
+            <p>
+              Gracias a la colaboración con CAMMARQ, cada obra fue digitalizada
+              utilizando el sistema gaussian splatting, tecnología de vanguardia
+              que permite que el arte, el patrimonio y la tecnología dialoguen
+              en una nueva dimensión perceptiva. No se documenta sólo el espacio
+              o la forma, sino la manera en que miramos y comprendemos el
+              paisaje: su respiración, su textura, su pulso.<br /><br />
+            </p>
+            <p>
+              En este recorrido virtual, la mediación tecnológica no sustituye
+              la experiencia; la prolonga. Nos invita a reconocer que el
+              patrimonio también puede revelarse en la distancia, como una
+              presencia que, al transformarse, nos enseña a ver de nuevo.
             </p>
           </div>
         </section>
       </main>
+
+      <section class="partners-section">
+        <div class="partners-title">Aliados</div>
+        <div class="partners-carousel">
+          <img
+            src="/textures/partners/Anahuac.png"
+            alt="Anahuac"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/Buao ccs.png"
+            alt="BUAO"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/BUAP.png"
+            alt="BUAP"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/Ciudad.png"
+            alt="Ciudad"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/Crest.png"
+            alt="CREST"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/Cultura.png"
+            alt="Cultura"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/Gerencia.png"
+            alt="Gerencia del Centro Histórico"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/Puebla.png"
+            alt="Puebla"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/Sistema.png"
+            alt="Sistema"
+            class="partner-logo"
+          />
+          <img
+            src="/textures/partners/TEC.png"
+            alt="TEC"
+            class="partner-logo"
+          />
+        </div>
+      </section>
     </div>
 
     <script type="module" src="/src/main.js"></script>
