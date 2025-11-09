@@ -31,45 +31,46 @@ const PATIO_INFO = {
     name: "Tramas ocultas",
     author: "UNIVERSIDAD ANÁHUAC",
     description:
-      "La ciudad se revela aquí como aula abierta, un territorio donde historia, memoria y poder se entrelazan. Esta instalación propone al Paisaje Urbano Histórico como herramienta crítica y sensible para repensar la enseñanza de la arquitectura y el urbanismo. Más que una representación del pasado, es un dispositivo pedagógico que invita a habitar, leer y transformar la ciudad desde sus barrios fundacionales. En ellos, lo visible convive con lo olvidado, recordando que el conocimiento del espacio urbano no se enseña solo en planos, sino en las calles donde la memoria colectiva sigue construyendo su forma.",
+      "Tramas Ocultas reflexiona sobre los barrios fundacionales de Puebla y su papel en la memoria urbana. La instalación presenta catorce pendones que muestran la superposición de sus polígonos históricos y actuales, acompañados de símbolos que narran su transformación. Un manto translúcido los envuelve, evocando lo olvidado o silenciado. El proyecto propone ver la ciudad como un aula viva donde arquitectura y urbanismo se aprenden desde la experiencia. Es una invitación a reconocer las historias ocultas que conforman el paisaje patrimonial.",
   },
   casa2: {
     name: "La ética de los cuidados",
     author: "TEC DE MONTERREY",
     description:
-      "La intervención transforma el recorrido entre dos patios en una experiencia simbólica que revela lo invisible de la ciudad. Desde una mirada de género, invita a pensar cómo el espacio urbano se ha construido a partir de una lógica productiva que excluye las tareas que sostienen la vida. Alimentar, limpiar, acompañar o consolar se reconocen aquí como actos esenciales: una infraestructura afectiva y política que hace posible habitar. Este tránsito propone un encuentro entre lo privado y lo público, entre el silencio doméstico y la memoria colectiva.",
+      "La Ética de los Cuidados plantea una lectura urbana desde el feminismo y la interdependencia. Inspirada en la teoría del colectivo Punt 6, visibiliza las labores que sostienen la vida y suelen ser invisibles: alimentar, acompañar, limpiar. A través de tres piezas —sombras, anaglifo y estructuras germinadas—, la instalación recorre la transición entre lo doméstico y lo público. Propone entender los cuidados como infraestructura vital de la ciudad y reflexionar sobre cómo diseñar entornos que fomenten empatía, responsabilidad y comunidad.",
   },
   casa3: {
     name: "Millar",
     author: "ANDRÉS Y JOSÉ + MAJO MENDOZA",
     description:
-      "Un manto de mil ladrillos transforma el patio en una topografía habitable que reinterpreta el corazón doméstico de Puebla. El tabique, materia fundacional de la ciudad, se libera aquí de su función estructural para convertirse en metáfora de un territorio en constante cambio. Algunas piezas permanecen sueltas: pueden moverse, girarse o reagruparse, invitando a imaginar la ciudad como un organismo vivo, nunca terminado. El visitante deja de ser espectador y se convierte en agente de transformación. Cada desplazamiento, cada gesto, recuerda que el espacio urbano —como la memoria— se construye y reconstruye sin cesar.",
+      "Millar transforma el patio mediante mil ladrillos dispuestos como un relieve efímero. La instalación celebra la sencillez del material y su capacidad para generar emoción y encuentro. Cada ladrillo, humilde y repetido, refleja el trabajo humano que da forma a la ciudad. El agua, presente en el conjunto, recuerda los antiguos cauces y la relación entre materia y memoria. Millar es una lectura contemporánea del paisaje cultural de Puebla y un homenaje a lo elemental, a la belleza de lo simple y al valor del oficio en la construcción del espacio común.",
   },
   casa4: {
     name: "Una ventana hacia el pasado",
     author: "EMA",
     description:
-      "La instalación abre un umbral entre el presente y las raíces que nos sostienen. A partir del maíz —semilla, alimento y símbolo— se construye un paisaje efímero hecho de hojas y roca volcánica que evoca los campos de cultivo y su memoria ancestral. El visitante camina entre los restos del ciclo agrícola, escuchando el crujir de las hojas que regresan a la tierra. La obra invita a mirar más allá de lo inmediato: a reconocer en el maíz la continuidad de la vida, la resistencia frente a la homogeneización y la memoria viva que une comunidad, naturaleza y tiempo.",
+      "Una ventana hacia el pasado propone mirar el paisaje urbano de Puebla desde la memoria. La pieza, concebida como un umbral simbólico, revela la superposición de tiempos y transforma la percepción del entorno. El maíz, elemento central, representa resistencia ante la pérdida de diversidad agrícola y cultural. Entre hojas y roca volcánica, el visitante experimenta un paisaje sonoro y táctil que evoca los campos ancestrales. La obra invita a reflexionar sobre nuestra relación con el territorio y la historia compartida que habita en la ciudad.",
   },
   casa5: {
     name: "Ciudad deshilada",
     author: "ARQUÍA",
     description:
-      "Texto descriptivo para Casa 5. Agrega aquí la información específica de este patio.",
+      "Ciudad Deshilada reinterpreta la tradición textil poblana mediante hilos de hilaza almidonada suspendidos en aros de plata. La instalación genera un espacio envolvente que transforma la percepción del visitante, evocando el oficio artesanal que fue esencial en la economía y cultura local. Los hilos, suspendidos entre la firmeza y la fragilidad, simbolizan un legado que resiste pese al tiempo. El recorrido invita a redescubir la memoria de los artesanos y a valorar la delicadeza del trabajo manual como parte viva del patrimonio cultural.",
   },
   casa6: {
     name: "Biombo Urbano",
     author: "COLECTIVO ÁGORA",
     description:
-      "Texto descriptivo para Casa 6. Agrega aquí la información específica de este patio.",
+      "Biombo Urbano crea una pausa dentro del tejido urbano. Hecho con madera quemada y telas teñidas, el espacio ofrece un tránsito entre luz y sombra, lo íntimo y lo colectivo. La obra rescata materiales comunes y los resignifica, proponiendo una reflexión sobre la circularidad y la sustentabilidad. Las texturas y aromas invitan a una experiencia sensorial que transforma la percepción del visitante. Este biombo es un umbral efímero que no separa, sino que conecta: un instante de silencio en medio del ritmo cotidiano de la ciudad.",
   },
   casa7: {
     name: "Paisajes urbanos trans(h)istóricos",
     author: "NOSOTRANS",
     description:
-      "Esta intervención nace de las vivencias y memorias de las personas trans que habitan y recorren el paisaje urbano histórico de Puebla. A partir de la reinterpretación de símbolos como El Reloj del Gallito, Los Ángeles y las placas de calle, se propone una lectura plural del patrimonio. La obra visibiliza cuerpos, gestos y expresiones que resisten la violencia y la exclusión, reivindicando las manifestaciones callejeras, los mercados y las ferias como parte esencial de la identidad urbana. Es un llamado a reconocer que la historia de la ciudad también se escribe en los márgenes.",
+      "Paisajes Urbanos Trans(H)istóricos visibiliza las experiencias trans, feministas y disidentes dentro del paisaje urbano poblano. A través de símbolos como el reloj del Gallito o las placas de calle, la instalación reinterpreta la ciudad desde voces históricamente excluidas. Los materiales y colores evocan los espacios populares —tianguis, ferias, mercados— como parte esencial del patrimonio vivo. La obra invita a repensar la planeación urbana desde la inclusión, imaginando una ciudad que acoja todas las identidades y preserve sus múltiples memorias.",
   },
 };
+
 // Movement bounds for each house - adjust these values per location
 const BOUNDS_CONFIG = {
   casa1: { minX: -0.65, maxX: 0.5, minZ: -1.8, maxZ: 0.05 },
@@ -90,6 +91,39 @@ const CUBE_CONFIG = {
   casa5: { width: 10, height: 10, depth: 10, y: 0 },
   casa6: { width: 10, height: 10, depth: 10, y: 0 },
   casa7: { width: 10, height: 10, depth: 10, y: 0 },
+};
+
+// Floor plan images for each house
+const FLOOR_PLANS = {
+  casa1: "/textures/plans/Anahuac_plan.png",
+  casa2: "/textures/plans/Etica_plan.png",
+  casa3: "/textures/plans/Millar_plan.png",
+  casa4: "/textures/plans/Ventana_plan.png",
+  casa5: "/textures/plans/PatioHilos_plan.png",
+  casa6: "/textures/plans/Biombo_plan.png",
+  casa7: "/textures/plans/Gallito_plan.png",
+};
+
+// Minimap player position offsets (in pixels from center 200,200)
+const MINIMAP_OFFSETS = {
+  casa1: { x: 0, y: 0 },
+  casa2: { x: 110, y: 0 },
+  casa3: { x: 0, y: 0 },
+  casa4: { x: 0, y: 0 },
+  casa5: { x: 0, y: 0 },
+  casa6: { x: 0, y: 0 },
+  casa7: { x: 0, y: 0 },
+};
+
+// Rotation offset for minimap FOV triangle (in degrees)
+const MINIMAP_ROTATION_OFFSET = {
+  casa1: 0,
+  casa2: -90,
+  casa3: 0,
+  casa4: 0, // Add offset like 90, -90, 180, etc.
+  casa5: 0,
+  casa6: 0,
+  casa7: 0,
 };
 
 // Get bounds for current house
@@ -602,6 +636,100 @@ Object.assign(back.style, {
 back.onclick = () => (window.location.href = "/");
 document.body.appendChild(back);
 
+// Floor plan HUD (top right)
+const floorPlanPath = FLOOR_PLANS[id];
+const minimapOffset = MINIMAP_OFFSETS[id] || { x: 0, y: 0 };
+
+if (floorPlanPath) {
+  const centerX = 200 + minimapOffset.x;
+  const centerY = 200 + minimapOffset.y;
+
+  const floorPlanHUD = document.createElement("div");
+  floorPlanHUD.innerHTML = `
+    <img src="${floorPlanPath}" alt="Floor Plan" style="
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    ">
+    <div id="playerDot" style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      background: #ED1E79;
+      border: 2px solid white;
+      border-radius: 50%;
+      transform: translate(calc(-50% + ${minimapOffset.x}px), calc(-50% + ${
+    minimapOffset.y
+  }px));
+      z-index: 2;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    "></div>
+    <svg id="playerFOV" style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    " viewBox="0 0 400 400">
+      <defs>
+        <linearGradient id="fovGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" style="stop-color:#ED1E79;stop-opacity:0.6" />
+          <stop offset="100%" style="stop-color:#ED1E79;stop-opacity:0" />
+        </linearGradient>
+      </defs>
+      <polygon id="fovTriangle" points="${centerX},${centerY} ${centerX - 30},${
+    centerY - 60
+  } ${centerX + 30},${centerY - 60}" 
+        fill="url(#fovGradient)" 
+        stroke="none"/>
+    </svg>
+  `;
+  Object.assign(floorPlanHUD.style, {
+    position: "absolute",
+    top: "12px",
+    right: "12px",
+    width: "400px",
+    height: "400px",
+    background: "rgba(0, 0, 0, 0.7)",
+    border: "2px solid rgba(255, 255, 255, 0.3)",
+    borderRadius: "8px",
+    padding: "8px",
+    zIndex: 10,
+    backdropFilter: "blur(10px)",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+  });
+  document.body.appendChild(floorPlanHUD);
+}
+
+// Update FOV triangle rotation
+function updateMinimap() {
+  const fovTriangle = document.getElementById("fovTriangle");
+  const offset = MINIMAP_OFFSETS[id] || { x: 0, y: 0 };
+  const rotationOffset = MINIMAP_ROTATION_OFFSET[id] || 0;
+  const centerX = 200 + offset.x;
+  const centerY = 200 + offset.y;
+
+  if (fovTriangle && camera) {
+    // Get camera's forward direction vector
+    const direction = new THREE.Vector3();
+    camera.getWorldDirection(direction);
+
+    // Calculate angle in XZ plane and reverse rotation direction
+    const angle = Math.atan2(direction.x, direction.z);
+    const rotationDegrees = -THREE.MathUtils.radToDeg(angle) + rotationOffset;
+
+    fovTriangle.setAttribute(
+      "transform",
+      `rotate(${rotationDegrees} ${centerX} ${centerY})`
+    );
+  }
+}
+
 // Mobile touch controls (on-screen buttons)
 if ("ontouchstart" in window) {
   const controlsContainer = document.createElement("div");
@@ -676,6 +804,7 @@ renderer.setAnimationLoop(() => {
   }
 
   clampToBounds();
+  updateMinimap(); // Update FOV indicator
   renderer.render(scene, camera);
 });
 
