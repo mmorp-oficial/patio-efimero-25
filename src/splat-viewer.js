@@ -106,23 +106,23 @@ const FLOOR_PLANS = {
 
 // Minimap player position offsets (in pixels from center 200,200)
 const MINIMAP_OFFSETS = {
-  casa1: { x: 0, y: 0 },
+  casa1: { x: -50, y: 0 },
   casa2: { x: 110, y: 0 },
   casa3: { x: 0, y: 0 },
-  casa4: { x: 0, y: 0 },
+  casa4: { x: -30, y: -40 },
   casa5: { x: 0, y: 0 },
   casa6: { x: 0, y: 0 },
-  casa7: { x: 0, y: 0 },
+  casa7: { x: 20, y: 30},
 };
 
 // Rotation offset for minimap FOV triangle (in degrees)
 const MINIMAP_ROTATION_OFFSET = {
-  casa1: 0,
+  casa1: -90,
   casa2: -90,
-  casa3: 0,
-  casa4: 0, // Add offset like 90, -90, 180, etc.
-  casa5: 0,
-  casa6: 0,
+  casa3: 90,
+  casa4: 0,
+  casa5: 180,
+  casa6: 180,
   casa7: 0,
 };
 
