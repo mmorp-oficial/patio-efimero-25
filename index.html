@@ -41,15 +41,19 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 32px 48px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 32px 48px 16px;
       }
 
       .logo {
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: -0.5px;
-        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 64px;
+      }
+
+      .logo img {
+        height: 80px;
+        width: auto;
+        object-fit: contain;
       }
 
       /* Main Content */
@@ -173,7 +177,7 @@
 
       .hero-right p {
         font-size: 16px;
-        line-height: 1.7;
+        line-height: 1.25;
         color: #fff;
         text-align: justify;
       }
@@ -285,7 +289,10 @@
   <body>
     <div class="container">
       <header>
-        <div class="logo">CAMMARQ + Patio Efímero</div>
+        <div class="logo">
+          <img src="/textures/logos/logoCAMMARQ.png" alt="CAMMARQ" />
+          <img src="/textures/logos/logoPatioEfimero.png" alt="Patio Efímero" />
+        </div>
       </header>
 
       <main>
@@ -346,16 +353,12 @@
               instalaciones que ocuparon los patios del Centro Histórico de
               Puebla, construidos de materia sólida, son ahora memoria viva
               traducida en luz y píxel.<br /><br />
-            </p>
-            <p>
               Gracias a la colaboración con CAMMARQ, cada obra fue digitalizada
               utilizando el sistema gaussian splatting, tecnología de vanguardia
               que permite que el arte, el patrimonio y la tecnología dialoguen
               en una nueva dimensión perceptiva. No se documenta sólo el espacio
               o la forma, sino la manera en que miramos y comprendemos el
               paisaje: su respiración, su textura, su pulso.<br /><br />
-            </p>
-            <p>
               En este recorrido virtual, la mediación tecnológica no sustituye
               la experiencia; la prolonga. Nos invita a reconocer que el
               patrimonio también puede revelarse en la distancia, como una

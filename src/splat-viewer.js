@@ -109,10 +109,10 @@ const MINIMAP_OFFSETS = {
   casa1: { x: -50, y: 0 },
   casa2: { x: 110, y: 0 },
   casa3: { x: 0, y: 0 },
-  casa4: { x: -30, y: -40 },
+  casa4: { x: -30, y: -30 },
   casa5: { x: 0, y: 0 },
   casa6: { x: 0, y: 0 },
-  casa7: { x: 20, y: 30},
+  casa7: { x: 20, y: 30 },
 };
 
 // Rotation offset for minimap FOV triangle (in degrees)
@@ -516,6 +516,7 @@ Object.assign(hint.style, {
   font: "12px/1.4 system-ui, sans-serif",
   opacity: "0.8",
   pointerEvents: "none",
+  zIndex: "100",
 });
 document.body.appendChild(hint);
 
@@ -580,6 +581,7 @@ Object.assign(titleOverlay.style, {
   font: "14px/1.4 system-ui, sans-serif",
   pointerEvents: "auto",
   textShadow: "0 2px 4px rgba(0,0,0,0.9)",
+  zIndex: "100",
 });
 document.body.appendChild(titleOverlay);
 
@@ -636,13 +638,28 @@ Object.assign(back.style, {
 back.onclick = () => (window.location.href = "/");
 document.body.appendChild(back);
 
+// Bottom gradient overlay
+const bottomGradient = document.createElement("div");
+Object.assign(bottomGradient.style, {
+  position: "fixed",
+  bottom: "0",
+  left: "0",
+  width: "100%",
+  height: "300px",
+  background:
+    "linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 40%, transparent 100%)",
+  pointerEvents: "none",
+  zIndex: 1,
+});
+document.body.appendChild(bottomGradient);
+
 // Floor plan HUD (top right)
 const floorPlanPath = FLOOR_PLANS[id];
 const minimapOffset = MINIMAP_OFFSETS[id] || { x: 0, y: 0 };
 
 if (floorPlanPath) {
-  const centerX = 200 + minimapOffset.x;
-  const centerY = 200 + minimapOffset.y;
+  const centerX = 125 + minimapOffset.x;
+  const centerY = 125 + minimapOffset.y;
 
   const floorPlanHUD = document.createElement("div");
   floorPlanHUD.innerHTML = `
@@ -656,8 +673,8 @@ if (floorPlanPath) {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       background: #ED1E79;
       border: 2px solid white;
       border-radius: 50%;
@@ -675,33 +692,31 @@ if (floorPlanPath) {
       height: 100%;
       pointer-events: none;
       z-index: 1;
-    " viewBox="0 0 400 400">
+    " viewBox="0 0 250 250">
       <defs>
         <linearGradient id="fovGradient" x1="0%" y1="100%" x2="0%" y2="0%">
           <stop offset="0%" style="stop-color:#ED1E79;stop-opacity:0.6" />
           <stop offset="100%" style="stop-color:#ED1E79;stop-opacity:0" />
         </linearGradient>
       </defs>
-      <polygon id="fovTriangle" points="${centerX},${centerY} ${centerX - 30},${
-    centerY - 60
-  } ${centerX + 30},${centerY - 60}" 
+      <polygon id="fovTriangle" points="${centerX},${centerY} ${centerX - 19},${
+    centerY - 38
+  } ${centerX + 19},${centerY - 38}" 
         fill="url(#fovGradient)" 
         stroke="none"/>
     </svg>
   `;
   Object.assign(floorPlanHUD.style, {
     position: "absolute",
-    top: "12px",
+    bottom: "12px",
     right: "12px",
-    width: "400px",
-    height: "400px",
-    background: "rgba(0, 0, 0, 0.7)",
-    border: "2px solid rgba(255, 255, 255, 0.3)",
+    width: "250px",
+    height: "250px",
+    background: "transparent",
+    border: "none",
     borderRadius: "8px",
     padding: "8px",
-    zIndex: 10,
-    backdropFilter: "blur(10px)",
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+    zIndex: "100",
   });
   document.body.appendChild(floorPlanHUD);
 }
@@ -711,8 +726,8 @@ function updateMinimap() {
   const fovTriangle = document.getElementById("fovTriangle");
   const offset = MINIMAP_OFFSETS[id] || { x: 0, y: 0 };
   const rotationOffset = MINIMAP_ROTATION_OFFSET[id] || 0;
-  const centerX = 200 + offset.x;
-  const centerY = 200 + offset.y;
+  const centerX = 125 + offset.x;
+  const centerY = 125 + offset.y;
 
   if (fovTriangle && camera) {
     // Get camera's forward direction vector
